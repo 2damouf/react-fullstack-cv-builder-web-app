@@ -1,13 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    width: 100vw;
+    overflow-x: hidden;
+    background: #f1f1f1;
+    height: auto;
+    font-family: 'Courier New', Courier, monospace;
+    justify-content: center;
+    text-align: center;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+@layer {
+    .login-container {
+        @apply w-full h-screen overflow-hidden flex flex-col items-start justify-start px-6 py-4 gap-6;
+    }
+
+    .login-mid-container{
+        @apply w-full flex flex-1 flex-col items-center justify-center gap-6;
+    }
+
+    .login-footer-container{
+        @apply w-full flex flex-1 flex-col items-center justify-center gap-6;
+    }
+
+
+    .footer-container{
+        @apply flex items-center justify-center gap-3 py-3;
+    }
+    .footer-icon{
+        @apply w-8 h-auto object-contain;
+    }
 }
