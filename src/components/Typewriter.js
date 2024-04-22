@@ -10,7 +10,7 @@ function Typewriterr() {
                     autoStart: true,
                     loop: true,
                     delay: 90,
-                    strings: ["CV Oluşturucu'ya Hoş Geldin!"]
+                    strings: ["Hızlı Cv Oluşturucu!"]
                 }}
                 />
 

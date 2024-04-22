@@ -1,5 +1,6 @@
 // images
 export { default as Icon } from "./img/icon.png";
+export { default as Login } from "./img/login.png";
 export { default as ErrorImg } from "./img/nodata.gif";
 
 export { default as Base1 } from "./img/designs/TemplateOne/Template1.png";

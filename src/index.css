@@ -6,9 +6,9 @@
 body {
     width: 100vw;
     overflow-x: hidden;
-    background: #f1f1f1;
+    background: white;
     height: auto;
-    font-family: 'Courier New', Courier, monospace;
+
     justify-content: center;
     text-align: center;
 }
