@@ -5,21 +5,33 @@ import { AnimatePresence, motion } from "framer-motion";
 import { PulseLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 import { HiLogout } from "react-icons/hi";
-import { slideProfileMenuAnimation, loginButtonAnimation } from "../animations";
+import { slideProfileMenuAnimation, loginButtonAnimation, searchCloseButtonAnimation } from "../animations";
 import { useQueryClient } from "react-query";
 import { auth } from "../config/firebase.config";
 import { adminUser } from "../utils/helpers";
+import useFilters from "../hooks/useFilters";
 
 
 const Header = () => {
+
   const { data, isLoading, isError } = useUser();
 
-  const queryClient = useQueryClient();
   const [isMenu, setisMenu] = useState(false);
+
+  const queryClient = useQueryClient();
+
+  const {data: filterData = {}} = useFilters();
+
+
   const signOut = async() => {
     await auth.signOut().then(() =>{
         queryClient.setQueryData("user", null)
     })
+  }
+
+  const handleChange = (e) => {
+    queryClient.setQueryData("filter", {...queryClient.getQueryData("filter"), searchTerm: e.target.value})
+
   }
   return (
     <header className="w-full flex items-center justify-between px-4 py-3 lg:px8 border-b border-x-gray-300 bg-bgPrimary z-50 gap-12 sticky top-0">
@@ -28,11 +40,26 @@ const Header = () => {
 
       {/* arama kutusu */}
       <div className="flex-1 border border-gray-300 px-4 py-1 rounded-md flex items-center justify-between bg-gray-200">
-      <input
+        <input
+          value={filterData.searchTerm ? filterData.searchTerm : ""}
+          onChange={handleChange}
           type="text"
           placeholder="Buradan arama yapabilirsiniz..."
           className="flex-1 h-12 bg-transparent font-semibold outline-none border-none"
         />
+
+        <AnimatePresence>
+          {filterData.searchTerm.length > 0 && (
+            <motion.div
+              {...searchCloseButtonAnimation}
+              className="w-8 h-8 flex items-center justify-center bg-gray-300 rounded-md cursor-pointer active:scale-95 duration-150"
+            >
+              <p className="flex items-center justify-center text-1xl text-black">
+                X
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* profil alanı */}
