@@ -301,12 +301,13 @@ const TemplateCreation = () => {
               </>
             ) : (
               <>
-                <div className="w-full h-full items-center justify-center">
-                  <PuffLoader color="#498FCD" size={40} />
-                  <p className="text-xl tracking-wider capitalize text-txtPrimary">
+                <div className='w-full h-full items-center justify-center flex flex-col'>
+                <PuffLoader color="#498FCD" size={50} />
+                  <p className="text-xl tracking-wider capitalize text-txtPrimary items-center justify-center">
                     Şuan hiçbir şablon mevcut değil. Yeni bir şablon
                     ekleyebilirsiniz!
                   </p>
+                  
                 </div>
               </>
             )}
