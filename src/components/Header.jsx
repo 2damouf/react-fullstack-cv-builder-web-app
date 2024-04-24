@@ -10,10 +10,11 @@ import { useQueryClient } from "react-query";
 import { auth } from "../config/firebase.config";
 import { adminUser } from "../utils/helpers";
 import useFilters from "../hooks/useFilters";
+import useTemplates from '../hooks/useTemplates';
 
 
 const Header = () => {
-
+  const {refetch: temp_refetch} = useTemplates();
   const { data, isLoading, isError } = useUser();
 
   const [isMenu, setisMenu] = useState(false);
@@ -29,17 +30,23 @@ const Header = () => {
     })
   }
 
+
   const handleChange = (e) => {
     queryClient.setQueryData("filter", {...queryClient.getQueryData("filter"), searchTerm: e.target.value})
-
   }
+
+  const clearFilter = () => {
+    queryClient.setQueryData("filter", {...queryClient.getQueryData("filter"), searchTerm: ""})
+  }
+
+
   return (
     <header className="w-full flex items-center justify-between px-4 py-3 lg:px8 border-b border-x-gray-300 bg-bgPrimary z-50 gap-12 sticky top-0">
       {/* logo */}
       <img src={Icon} className="w-12 h-auto object-contain" alt="" />
 
       {/* arama kutusu */}
-      <div className="flex-1 border border-gray-300 px-4 py-1 rounded-md flex items-center justify-between bg-gray-200">
+      <div className="flex-1 border border-gray-300 px-4 py-1 rounded-b-md flex items-center justify-between bg-gray-200">
         <input
           value={filterData.searchTerm ? filterData.searchTerm : ""}
           onChange={handleChange}
@@ -47,10 +54,11 @@ const Header = () => {
           placeholder="Buradan arama yapabilirsiniz..."
           className="flex-1 h-12 bg-transparent font-semibold outline-none border-none"
         />
-
+        {/* arama kutusunu temizleme butonu */}
         <AnimatePresence>
-          {filterData.searchTerm.length > 0 && (
+          {filterData.searchTerm && filterData.searchTerm.length > 0 && (
             <motion.div
+              onClick={clearFilter}
               {...searchCloseButtonAnimation}
               className="w-8 h-8 flex items-center justify-center bg-gray-300 rounded-md cursor-pointer active:scale-95 duration-150"
             >
